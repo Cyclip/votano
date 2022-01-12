@@ -5,8 +5,8 @@
   },
   "build": {
     "distDir": "../build",
-    "devPath": "http://0.0.0.0:3000",
-    "beforeDevCommand": "",
+    "devPath": "http://localhost:3000",
+    "beforeDevCommand": "npm start",
     "beforeBuildCommand": ""
   },
   "tauri": {
@@ -54,10 +54,13 @@
     "windows": [
       {
         "title": "Votano",
-        "width": 800,
-        "height": 600,
+        "width": 683,
+        "height": 384,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "maximized": true,
+        "minWidth": 683,
+        "minHeight": 384
       }
     ],
     "security": {
