@@ -1,38 +1,154 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #242121;
+    min-height: 100vh;
+    color: white;
+    font-family: "Rubik-Light";
 }
 
-.App-link {
-  color: #61dafb;
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.center-left-content {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+
+.no-select {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+}
+
+/* navbar */
+.navbar {
+    background-color: #373737;
+    height: 50px;
+    width: 100vw;
+    display: flex;
+    justify-content: left;
+}
+
+.navbar .menuButton {
+    width: 40px;
+    padding: 0 5px;
+    height: 50px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.navbar .menuButton:hover {
+    background-color: #424242;
+}
+
+.navbar .menuButton:active {
+    background-color: #3b4a5a;
+}
+
+.navbar .menuButton .icon {
+    width: 24px;
+    height: 24px;
+}
+
+.navbar .title {
+    margin: 5px 8px;
+}
+
+/* contents */
+.contents {
+    display: flex;
+    justify-content: left;
+}
+
+/* menu */
+.menu {
+    position: relative;
+    width: 20%;
+    height: calc(100vh - 50px);
+    background-color: #2C2C2C;
+    transition: margin-left 0.5s ease;
+    margin: 0;
+}
+
+.menu.open {
+    margin-left: 0;
+}
+
+.menu.closed {
+    margin-left: -20%;
+}
+
+.menu .items {
+    overflow-y: auto;
+    width: 100%;
+    height: 80%;
+}
+
+.menu .items .item {
+    width: 100%;
+    height: 60px;
+    background-color: #2C2C2C;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.menu .items .item:hover {
+    background-color: #383838;
+}
+
+.menu .items .name {
+    width: calc(100% - 32px);
+    margin: 0 auto;
+    height: 100%;
+    float: left;
+}
+
+.menu .items .name h3 {
+    margin: 0;
+}
+
+.menu .items .item .icon {
+    width: 24px;
+    height: 24px;
+    float: right;
+    margin: 17px 0;
+}
+
+.menu .items .item .icon.flipped {
+    animation: flipped_arrow 0.35s cubic-bezier(.27,1.37,.39,1.14);
+    animation-fill-mode: forwards;
+}
+
+.menu .items .item .icon.unflipped {
+    animation: unflipped_arrow 0.35s cubic-bezier(.27,1.37,.39,1.14);
+    animation-fill-mode: forwards;
+}
+
+@keyframes flipped_arrow {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes unflipped_arrow {
+    0% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
