@@ -5,6 +5,7 @@ import './App.css';
 // All icon imports
 import {
     MenuAlt3Icon,
+    SearchIcon,
     ChevronDownIcon,
 } from '@heroicons/react/outline'
 
@@ -42,15 +43,18 @@ class App extends Component {
                 <div className="contents">
                     <div className={"menu " + (this.state.menuOpen ? "open" : "closed")}>
                         <div className="items no-select">
-                        <div className="item center-left-content">
-                            <h3>Search</h3>
-                        </div>
-                        <div className="item" onClick={() => this.togglePlaylists()}>
-                            <div class="name center-left-content withIcon">
-                                <h3>My playlists</h3>
+                            <div className="item" onClick={() => function() {}}>
+                                <div class="name center-left-content withIcon">
+                                    <h3>Search</h3>
+                                </div>
+                                <SearchIcon class="icon"/>
                             </div>
-                            <ChevronDownIcon class={"icon " + (this.state.playlistsOpen ? "flipped" : "unflipped")}/>
-                        </div>
+                            <div className="item" onClick={() => this.togglePlaylists()}>
+                                <div class="name center-left-content withIcon">
+                                    <h3>My playlists</h3>
+                                </div>
+                                <ChevronDownIcon class={"icon " + (this.state.playlistsOpen ? "flipped" : "unflipped")}/>
+                            </div>
                         
                         </div>
                     </div>
