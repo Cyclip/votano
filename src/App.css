@@ -204,7 +204,7 @@
 }
 
 .playlistsContainer .playlist.active {
-    background-color: #417960;
+    background-color: #425e51;
     cursor: default;
 }
 
@@ -215,6 +215,24 @@
     box-sizing: border-box;
 }
 
+.playlistsContainer .newPlaylist {
+    margin: 0;
+    width: 100%;
+    padding: 7px 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 20px calc(100% - 20px);
+}
+
+.playlistsContainer .newPlaylist:hover {
+    cursor: pointer;
+    transition: 0.3s ease;
+    background-color: #383838;
+}
+
+.playlistsContainer .newPlaylist h4 {
+    margin: 0;
+}
 
 
 .settings {

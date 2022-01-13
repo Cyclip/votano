@@ -8,6 +8,7 @@ import {
     SearchIcon,
     ChevronDownIcon,
     CogIcon,
+    PlusSmIcon,
 } from '@heroicons/react/outline'
 
 class App extends Component {
@@ -67,6 +68,12 @@ class App extends Component {
                                     <h4>Playlist 1</h4>
                                 </div>
                                 <div className="playlist">
+                                    <h4>Playlist 1</h4>
+                                </div>
+                                <div className="newPlaylist">
+                                    <div class="center-content">
+                                        <PlusSmIcon className="icon"/>
+                                    </div>
                                     <h4>Playlist 1</h4>
                                 </div>
                             </div>
