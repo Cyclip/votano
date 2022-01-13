@@ -323,6 +323,7 @@
 #search .videos .video {
     width: 100%;
     height: 100px;
+    margin: 15px 0;
     display: flex;
     justify-content: left;
     border-radius: 10px;
@@ -330,7 +331,31 @@
 }
 
 #search .videos .video .thumbnail {
+    position: relative;
     border-radius: 10px;
+}
+
+#search .videos .video .thumbnail .play-thumbnail:hover {
+    opacity: 1;
+}
+
+#search .videos .video .thumbnail .play-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    background-color: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+#search .videos .video .thumbnail .play-thumbnail .icon {
+    color: #57D875;
 }
 
 #search .videos .video .details {
@@ -374,7 +399,6 @@
 
 #search .videos .video:hover {
     background-color: #221f1f;
-    margin-left: 3px;
 }
 
 #search .videos .video:hover .add-video .icon {

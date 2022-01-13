@@ -9,6 +9,7 @@ import {
     ChevronDownIcon,
     CogIcon,
     PlusSmIcon,
+    PlayIcon,
 } from '@heroicons/react/outline'
 
 class App extends Component {
@@ -102,9 +103,12 @@ class App extends Component {
                                 </div>
 
                                 <div className="videos">
-                                    <div className="video">
+                                <div className="video">
                                         <div className="thumbnail">
                                             <img src="https://via.placeholder.com/100" className="thumbnail"/>
+                                            <div className="play-thumbnail">
+                                                <PlayIcon className="icon"/>
+                                            </div>
                                         </div>
                                         <div className="details">
                                             <h2 className="video-title">Title</h2>
@@ -114,6 +118,7 @@ class App extends Component {
                                             <PlusSmIcon className="icon"/>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         }
