@@ -100,6 +100,21 @@ class App extends Component {
                                         <SearchIcon className="icon"/>
                                     </button>
                                 </div>
+
+                                <div className="videos">
+                                    <div className="video">
+                                        <div className="thumbnail">
+                                            <img src="https://via.placeholder.com/100" className="thumbnail"/>
+                                        </div>
+                                        <div className="details">
+                                            <h2 className="video-title">Title</h2>
+                                            <h3 className="video-author">By author</h3>
+                                        </div>
+                                        <div className="add-video center-content">
+                                            <PlusSmIcon className="icon"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>
