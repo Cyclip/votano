@@ -86,7 +86,7 @@ class App extends Component {
                             // search tab
                             this.state.currentTab == "search" &&
                             <div id="search">
-                                <h1>Search for a song</h1>
+                                <h1 className="no-select">Search for a song</h1>
                                 <div className="searchbar">
                                     <input 
                                         placeholder="Search song name.."
@@ -103,7 +103,7 @@ class App extends Component {
                                 </div>
 
                                 <div className="videos">
-                                <div className="video">
+                                    <div className="video">
                                         <div className="thumbnail">
                                             <img src="https://via.placeholder.com/100" className="thumbnail"/>
                                             <div className="play-thumbnail">

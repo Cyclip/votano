@@ -70,7 +70,7 @@
 /* menu */
 .menu {
     position: relative;
-    width: 20%;
+    min-width: 20%;
     height: calc(100vh - 50px);
     background-color: #2C2C2C;
     transition: margin-left 0.5s ease;
@@ -257,7 +257,7 @@
 /* MAIN SECTION */
 
 .main {
-    width: 80%; /* menu is 20% */
+    width: 100%; /* menu is 20% */
     height: calc(100vh - 50px);
     padding: 10px 30px;
     box-sizing: border-box;
