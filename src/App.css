@@ -99,6 +99,7 @@
     box-sizing: border-box;
     cursor: pointer;
     transition: 0.2s ease;
+    z-index: 5;
 }
 
 .menu .items .item:hover {
@@ -151,4 +152,86 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+
+    100% {
+        opacity: 100;
+        display: block;
+    }
+}
+
+@keyframes fade_out {
+    0% {
+        opacity: 100;
+        display: block;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+.playlistsContainer {
+    width: 100%;
+    height: auto;
+    z-index: 0;
+}
+
+.playlistsContainer.visible {
+    animation: fade_in 0.35s cubic-bezier(.27,1.37,.39,1.14);
+    animation-fill-mode: forwards;
+}
+
+.playlistsContainer.invisible {
+    animation: fade_out 0.35s cubic-bezier(.27,1.37,.39,1.14);
+    animation-fill-mode: forwards;
+}
+
+.playlistsContainer .playlist {
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.playlistsContainer .playlist:hover {
+    background-color: #383838;
+}
+
+.playlistsContainer .playlist.active {
+    background-color: #417960;
+    cursor: default;
+}
+
+.playlistsContainer .playlist h4 {
+    margin: 0;
+    padding: 7px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+.settings {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    bottom: 5px;
+    left: 15px;
+    cursor: pointer;
+}
+
+.settings .icon {
+    width: 24px;
+    height: 24px;
+    transition: 0.3s ease;
+}
+
+.settings:hover .icon {
+	filter: drop-shadow(0 0 2px rgba(255,255,255, 0.5));
 }

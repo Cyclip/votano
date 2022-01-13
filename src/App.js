@@ -7,6 +7,7 @@ import {
     MenuAlt3Icon,
     SearchIcon,
     ChevronDownIcon,
+    CogIcon,
 } from '@heroicons/react/outline'
 
 class App extends Component {
@@ -50,16 +51,32 @@ class App extends Component {
                                 <SearchIcon class="icon"/>
                             </div>
                             <div className="item" onClick={() => this.togglePlaylists()}>
-                                <div class="name center-left-content withIcon">
+                                <div className="name center-left-content withIcon">
                                     <h3>My playlists</h3>
                                 </div>
                                 <ChevronDownIcon class={"icon " + (this.state.playlistsOpen ? "flipped" : "unflipped")}/>
                             </div>
-                        
+                            <div className={"playlistsContainer " + (this.state.playlistsOpen ? "visible" : "invisible")}>
+                                <div className="playlist">
+                                        <h4>Playlist 1</h4>
+                                    </div>
+                                <div className="playlist active">
+                                    <h4>Playlist 1</h4>
+                                </div>
+                                <div className="playlist">
+                                    <h4>Playlist 1</h4>
+                                </div>
+                                <div className="playlist">
+                                    <h4>Playlist 1</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings">
+                            <CogIcon className="icon"/>
                         </div>
                     </div>
                     <div class="main">
-                        
                     </div>
                 </div>
             </header>
