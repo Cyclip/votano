@@ -18,6 +18,8 @@ class App extends Component {
         this.state = {
             menuOpen: true,
             playlistsOpen: true,
+            currentTab: "search",
+            searchBarVal: "",
         };
     }
 
@@ -33,6 +35,10 @@ class App extends Component {
         });
     }
 
+    searchSongs = () => {
+        alert("yee");
+    }
+
     render() {
         return <div className="App"> 
             <header className="App-header">
@@ -46,44 +52,56 @@ class App extends Component {
                     <div className={"menu " + (this.state.menuOpen ? "open" : "closed")}>
                         <div className="items no-select">
                             <div className="item" onClick={() => function() {}}>
-                                <div class="name center-left-content withIcon">
+                                <div className="name center-left-content withIcon">
                                     <h3>Search</h3>
                                 </div>
-                                <SearchIcon class="icon"/>
+                                <SearchIcon className="icon"/>
                             </div>
                             <div className="item" onClick={() => this.togglePlaylists()}>
                                 <div className="name center-left-content withIcon">
                                     <h3>My playlists</h3>
                                 </div>
-                                <ChevronDownIcon class={"icon " + (this.state.playlistsOpen ? "flipped" : "unflipped")}/>
+                                <ChevronDownIcon className={"icon " + (this.state.playlistsOpen ? "flipped" : "unflipped")}/>
                             </div>
                             <div className={"playlistsContainer " + (this.state.playlistsOpen ? "visible" : "invisible")}>
                                 <div className="playlist">
-                                        <h4>Playlist 1</h4>
-                                    </div>
-                                <div className="playlist active">
-                                    <h4>Playlist 1</h4>
-                                </div>
-                                <div className="playlist">
-                                    <h4>Playlist 1</h4>
-                                </div>
-                                <div className="playlist">
-                                    <h4>Playlist 1</h4>
+                                    <h4>Example playlist</h4>
                                 </div>
                                 <div className="newPlaylist">
-                                    <div class="center-content">
+                                    <div className="center-content">
                                         <PlusSmIcon className="icon"/>
                                     </div>
-                                    <h4>Playlist 1</h4>
+                                    <h4>Create playlist</h4>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="settings">
+                        <div className="settings">
                             <CogIcon className="icon"/>
                         </div>
                     </div>
-                    <div class="main">
+                    <div className="main">
+                        {
+                            // search tab
+                            this.state.currentTab == "search" &&
+                            <div id="search">
+                                <h1>Search for a song</h1>
+                                <div className="searchbar">
+                                    <input 
+                                        placeholder="Search song name.."
+                                        onChange={event => {this.setState({searchBarVal: event.target.value})}}
+                                        onKeyPress={event => {
+                                            if (event.key == 'Enter') {
+                                                this.searchSongs();
+                                            }
+                                        }}
+                                    />
+                                    <button onClick={() => this.searchSongs()} className="center-content">
+                                        <SearchIcon className="icon"/>
+                                    </button>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </header>
