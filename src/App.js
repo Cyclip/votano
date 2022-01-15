@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './fonts.css';
 import './App.css';
-import loading from './loading.svg';
+import pulse from './pulse.svg';
+import threedots from './3dots.svg';
+import play from './play.svg';
+import pause from './pause.svg';
+import repeat from './repeat.svg';
 
 // All icon imports
 import {
@@ -25,6 +29,17 @@ class App extends Component {
             currentlySearching: false, // if currently searching
             lastSearched: "", // last searchBarVal
             videos: null, // html of videos
+
+            // not playing any
+            currentVideo: {
+                isVideo: false,
+                thumbnail: threedots,
+            },
+
+            currentPlaylist: {
+                name: null,
+                id: null,
+            }
         };
     }
 
@@ -97,6 +112,14 @@ class App extends Component {
     }
 
     render() {
+        const maincontentstyle = {
+            width: "100%",
+        };
+
+        const resetMargin = {
+            margin: "0",
+        }
+
         return <div className="App"> 
             <header className="App-header">
                 <div className="navbar">
@@ -137,42 +160,83 @@ class App extends Component {
                             <CogIcon className="icon"/>
                         </div>
                     </div>
-                    <div className="main">
-                        {
-                            // search tab
-                            this.state.currentTab == "search" &&
-                            <div id="search">
-                                <h1 className="no-select">Search for a song</h1>
-                                <div className="searchbar">
-                                    <input 
-                                        placeholder="Search song name.."
-                                        onChange={event => {
-                                            this.setState({searchBarVal: event.target.value})
-                                        }}
-                                        onKeyPress={event => {
-                                            if (event.key == 'Enter' && !this.state.currentlySearching) {
-                                                this.searchSongs();
-                                            }
-                                        }}
-                                    />
-                                    <button onClick={() => this.searchSongs()} className="center-content">
-                                        <SearchIcon className="icon"/>
-                                    </button>
+                    <div class="main-content" style={maincontentstyle}>
+                        <div className="main">
+                            {
+                                // search tab
+                                this.state.currentTab == "search" &&
+                                <div id="search">
+                                    <h1 className="no-select">Search for a song</h1>
+                                    <div className="searchbar">
+                                        <input 
+                                            placeholder="Search song name.."
+                                            onChange={event => {
+                                                this.setState({searchBarVal: event.target.value})
+                                            }}
+                                            onKeyPress={event => {
+                                                if (event.key == 'Enter' && !this.state.currentlySearching) {
+                                                    this.searchSongs();
+                                                }
+                                            }}
+                                        />
+                                        <button onClick={() => this.searchSongs()} className="center-content">
+                                            <SearchIcon className="icon"/>
+                                        </button>
+                                    </div>
+
+                                    <div className="videos">
+                                        {
+                                            // render only if not searching
+                                            !this.state.currentlySearching
+                                            ? this.state.videos
+                                            : <div class="loading center-content">
+                                                <img src={pulse}/>
+                                            </div>
+
+                                        }
+                                    </div>
                                 </div>
+                            }
+                        </div>
 
-                                <div className="videos">
-                                    {
-                                        // render only if not searching
-                                        !this.state.currentlySearching
-                                        ? this.state.videos
-                                        : <div class="loading center-content">
-                                            <img src={loading}/>
-                                        </div>
-
-                                    }
+                        <div className="playbar">
+                            <div className="currently-playing">
+                                <div className="thumbnail">
+                                    <img src={this.state.currentVideo.thumbnail} className={"thumbnail-img " + (this.state.currentVideo.isVideo ? "" : "no-vid")}/>
+                                </div>
+                                <div className="details">
+                                    <h2>{this.state.currentVideo.title}</h2>
+                                    <h3>{this.state.currentPlaylist.name}</h3>
                                 </div>
                             </div>
-                        }
+                            <div className="progressbar">
+                                <div className="buttons">
+                                    <div></div>
+                                    <button className="play-button center-content">
+                                        <img src={play} className="reverse fix-pos-reversed"/>
+                                    </button>
+
+                                    <button className="play-button center-content">
+                                        <img src={pause}/>
+                                    </button>
+
+                                    <button className="play-button center-content">
+                                        <img src={play} className="fix-pos"/>
+                                    </button>
+
+                                    <div></div>
+                                    
+                                    <div className="displaced">
+                                        <button className="play-button center-content">
+                                            <img src={repeat} className="fix-pos" style={resetMargin}/>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="progress-bar">
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>

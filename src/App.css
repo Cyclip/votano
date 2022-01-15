@@ -282,7 +282,7 @@
 
 .main {
     width: 100%; /* menu is 20% */
-    height: calc(100vh - 50px);
+    height: calc(100vh - 50px - 100px); /* 50px for top bar, 100px for bottom bar */
     padding: 10px 30px;
     box-sizing: border-box;
     overflow-y: auto;
@@ -354,7 +354,7 @@
     transition: 0.3s ease;
 }
 
-#search .videos .video .thumbnail {
+.thumbnail {
     position: relative;
     border-radius: 10px;
     max-width: 150px;
@@ -364,16 +364,16 @@
     overflow: hidden;
 }
 
-#search .videos .video .thumbnail .thumbnail-img {
+.thumbnail .thumbnail-img {
     border-radius: 10px;
     max-height: 100%;
 }
 
-#search .videos .video .thumbnail .play-thumbnail:hover {
+.thumbnail .play-thumbnail:hover {
     opacity: 1;
 }
 
-#search .videos .video .thumbnail .play-thumbnail {
+.thumbnail .play-thumbnail {
     position: absolute;
     top: 0;
     left: 0;
@@ -388,7 +388,7 @@
     transition: 0.3s ease-out;
 }
 
-#search .videos .video .thumbnail .play-thumbnail .icon {
+.thumbnail .play-thumbnail .icon {
     color: #57D875;
 }
 
@@ -444,7 +444,86 @@
     opacity: 1;
 }
 
-/* loading */
-#search .videos .loading {
+/* playbar */
+.playbar {
+    width: 100%;
+    height: 100px;
+    background-color: #373737;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
 
+.playbar .currently-playing {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100px calc(100% - 100px);
+}
+
+.playbar .currently-playing .thumbnail {
+    width: 100px;
+    height: 100px;
+}
+
+.thumbnail-img.no-vid {
+    opacity: 0.1;
+}
+
+.playbar .progressbar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.progressbar .buttons {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.progressbar .buttons .play-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 16px;
+    border: none;
+    background-color: #2C2C2C;
+    cursor: pointer;
+}
+
+.progressbar .buttons .play-button:hover img {
+    filter: invert(69%) sepia(68%) saturate(330%) hue-rotate(101deg) brightness(92%) contrast(91%);
+}
+
+.progressbar .buttons .play-button.active {
+    filter: invert(69%) sepia(68%) saturate(330%) hue-rotate(101deg) brightness(92%) contrast(91%);
+}
+
+.progressbar .buttons .play-button img {
+    width: 80%;
+    height: 80%;
+    filter: invert(100%);
+    transition: 0.2s ease;
+}
+
+.fix-pos {
+    margin-left: 3px;
+}
+
+.fix-pos-reversed {
+    margin-left: -2px;
+}
+
+.reverse {
+    transform: scaleX(-1);
+}
+
+.buttons .displaced {
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: right;
+    gap: 10px;
 }
