@@ -1,3 +1,27 @@
+/* scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #242121;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2e2a2a;
+    transition: 0.2s ease;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #353030;
+}
+
+/* app */
+
 .App-header {
     background-color: #242121;
     min-height: 100vh;
@@ -418,4 +442,9 @@
 
 #search .videos .video:hover .add-video .icon {
     opacity: 1;
+}
+
+/* loading */
+#search .videos .loading {
+
 }

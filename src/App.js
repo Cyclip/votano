@@ -166,7 +166,7 @@ class App extends Component {
                                         !this.state.currentlySearching
                                         ? this.state.videos
                                         : <div class="loading center-content">
-                                            <loading/>
+                                            <img src={loading}/>
                                         </div>
 
                                     }
