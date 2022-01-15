@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './fonts.css';
 import './App.css';
+import loading from './loading.svg';
 
 // All icon imports
 import {
@@ -21,23 +22,78 @@ class App extends Component {
             playlistsOpen: true,
             currentTab: "search",
             searchBarVal: "",
+            currentlySearching: false, // if currently searching
+            lastSearched: "", // last searchBarVal
+            videos: null, // html of videos
         };
     }
 
+    // toggle menu opening
     toggleMenu = () => {
         this.setState({
             menuOpen: !this.state.menuOpen,
         });
     }
 
+    // toggle playlist opening
     togglePlaylists = () => {
         this.setState({
             playlistsOpen: !this.state.playlistsOpen,
         });
     }
 
+    // function to search for song
     searchSongs = () => {
-        alert("yee");
+        if (this.state.lastSearched != this.state.searchBarVal && this.state.searchBarVal != "") {
+            this.setState({
+                lastSearched: this.state.searchBarVal,
+                currentlySearching: true,
+            });
+
+            var url = `https://votanoapi.pythonanywhere.com/v1/search/${this.state.searchBarVal}?limit=8`
+            
+            fetch(url)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(result);
+                        var videoList = this.searchToElements(result);
+                        this.setState({
+                            "videos": videoList,
+                            currentlySearching: false,
+                        });
+                    },
+                    (error) => {
+                        console.error(error);
+                        this.setState({
+                            currentlySearching: false,
+                        });
+                    }
+                )
+            
+            
+        }
+    }
+
+    // convert a searched song JSON response to actual elements
+    searchToElements = (res) => {
+        return res.map(video => {
+            return <div className="video">
+                <div className="thumbnail">
+                    <img src={video.thumbnail} className="thumbnail-img"/>
+                    <div className="play-thumbnail center-content">
+                        <PlayIcon className="icon"/>
+                    </div>
+                </div>
+                <div className="details">
+                    <h2 className="video-title">{video.title}</h2>
+                    <h3 className="video-author">By {video.owner}</h3>
+                </div>
+                <div className="add-video center-content">
+                    <PlusSmIcon className="icon"/>
+                </div>
+            </div>
+        })
     }
 
     render() {
@@ -90,9 +146,11 @@ class App extends Component {
                                 <div className="searchbar">
                                     <input 
                                         placeholder="Search song name.."
-                                        onChange={event => {this.setState({searchBarVal: event.target.value})}}
+                                        onChange={event => {
+                                            this.setState({searchBarVal: event.target.value})
+                                        }}
                                         onKeyPress={event => {
-                                            if (event.key == 'Enter') {
+                                            if (event.key == 'Enter' && !this.state.currentlySearching) {
                                                 this.searchSongs();
                                             }
                                         }}
@@ -103,22 +161,15 @@ class App extends Component {
                                 </div>
 
                                 <div className="videos">
-                                    <div className="video">
-                                        <div className="thumbnail">
-                                            <img src="https://via.placeholder.com/100" className="thumbnail"/>
-                                            <div className="play-thumbnail">
-                                                <PlayIcon className="icon"/>
-                                            </div>
+                                    {
+                                        // render only if not searching
+                                        !this.state.currentlySearching
+                                        ? this.state.videos
+                                        : <div class="loading center-content">
+                                            <loading/>
                                         </div>
-                                        <div className="details">
-                                            <h2 className="video-title">Title</h2>
-                                            <h3 className="video-author">By author</h3>
-                                        </div>
-                                        <div className="add-video center-content">
-                                            <PlusSmIcon className="icon"/>
-                                        </div>
-                                    </div>
-                                    
+
+                                    }
                                 </div>
                             </div>
                         }

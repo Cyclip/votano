@@ -333,6 +333,16 @@
 #search .videos .video .thumbnail {
     position: relative;
     border-radius: 10px;
+    max-width: 150px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+}
+
+#search .videos .video .thumbnail .thumbnail-img {
+    border-radius: 10px;
+    max-height: 100%;
 }
 
 #search .videos .video .thumbnail .play-thumbnail:hover {
@@ -364,15 +374,20 @@
 }
 
 #search .videos .video .details h2, h3 {
-    margin: 15px;
+    margin: 5px;
+    margin-left: 15px;
+    margin-bottom: 5px;
     width: calc(100% - 150px);
-    font-family: "Rubik-Medium";
+    font-family: "Rubik-Light";
+}
+
+#search .videos .video .details h2 {
+    font-size: 20px;
 }
 
 #search .videos .video .details h3 {
     opacity: 0.3;
-    margin-top: 10px;
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Rubik-Light";
 }
 
