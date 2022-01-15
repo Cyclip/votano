@@ -34,7 +34,11 @@ class App extends Component {
             currentVideo: {
                 isVideo: false,
                 thumbnail: threedots,
+                startTime: null,
+                endTime: null,
             },
+
+            percentPlayed: 30,
 
             currentPlaylist: {
                 name: null,
@@ -119,6 +123,8 @@ class App extends Component {
         const resetMargin = {
             margin: "0",
         }
+
+        var percentagePlayed = this.state.percentPlayed + "%";
 
         return <div className="App"> 
             <header className="App-header">
@@ -233,7 +239,22 @@ class App extends Component {
                                     </div>
                                 </div>
                                 <div className="progress-bar">
+                                    <div className="thin-bar">
+                                        <div className="coloured-bar glow-bar" style={{"width": percentagePlayed}}></div>
+                                        <div className="ball glow-bar" style={{"margin-left": `calc(${percentagePlayed} - 8px)`}}></div>
+                                    </div>
                                     
+                                    <div className="timing">
+                                        <h5>{
+                                                this.state.currentVideo.isVideo
+                                                ? this.state.currentVideo.startTime
+                                                : "0:00"
+                                            } / {
+                                                this.state.currentVideo.isVideo
+                                                ? this.state.currentVideo.endTime
+                                                : "0:00"
+                                            }</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>

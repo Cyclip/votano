@@ -479,9 +479,10 @@
 .progressbar .buttons {
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 20px;
-    padding: 10px 0;
+    padding: 10px 150px;
+    box-sizing: border-box;
 }
 
 .progressbar .buttons .play-button {
@@ -499,11 +500,12 @@
 
 .progressbar .buttons .play-button.active {
     filter: invert(69%) sepia(68%) saturate(330%) hue-rotate(101deg) brightness(92%) contrast(91%);
+    filter: drop-shadow(0 0 5px #3eaf7e);
 }
 
 .progressbar .buttons .play-button img {
-    width: 80%;
-    height: 80%;
+    width: 70%;
+    height: 70%;
     filter: invert(100%);
     transition: 0.2s ease;
 }
@@ -522,8 +524,42 @@
 
 .buttons .displaced {
     position: absolute;
-    right: 0;
+    right: 50px;
     display: flex;
     justify-content: right;
     gap: 10px;
+}
+
+/* progress bar */
+.progress-bar {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: left;
+}
+
+.progress-bar .thin-bar {
+    width: 100%;
+    height: 3px;
+    background-color: #52d59c63;
+    border-radius: 3px;
+}
+
+.glow-bar {
+    filter: drop-shadow(0 0 5px #3eaf7e);
+}
+
+.progress-bar .thin-bar .coloured-bar {
+    height: 3px;
+    background-color: #55E4A6;
+}
+
+.progress-bar .thin-bar .ball {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    bottom: 9px;
+    background-color: #55E4A6;
 }
