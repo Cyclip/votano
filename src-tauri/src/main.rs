@@ -29,7 +29,7 @@ fn search_query(url: String) -> Result<String, String> {
                 None => {return Err("failed to find capture".to_string());}
             };
 
-            Ok(cap.to_string())
+            Ok(format!("{{{cap}}}", cap=cap))
         },
         None => {
             return Err("couldn't capture any regex".to_string());

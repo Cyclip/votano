@@ -1,3 +1,4 @@
+import { invoke } from '@tauri-apps/api/tauri'
 import React, { Component } from 'react';
 import './fonts.css';
 import './App.css';
@@ -29,6 +30,7 @@ class App extends Component {
             currentlySearching: false, // if currently searching
             lastSearched: "", // last searchBarVal
             videos: null, // html of videos
+            refinements: null, // "did you mean: x, y, etc."
 
             // not playing any
             currentVideo: {
@@ -65,44 +67,71 @@ class App extends Component {
 
     // function to search for song
     searchSongs = () => {
+        console.log(this.state);
         if (this.state.lastSearched != this.state.searchBarVal && this.state.searchBarVal != "") {
             this.setState({
                 lastSearched: this.state.searchBarVal,
                 currentlySearching: true,
             });
 
-            var url = `https://votanoapi.pythonanywhere.com/v1/search/${this.state.searchBarVal}?limit=8`
-            
-            fetch(url)
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        console.log(result);
-                        var videoList = this.searchToElements(result);
-                        this.setState({
-                            "videos": videoList,
-                            currentlySearching: false,
-                        });
-                    },
-                    (error) => {
-                        console.error(error);
-                        this.setState({
-                            currentlySearching: false,
-                        });
-                    }
-                )
-            
-            
+            var url = `https://www.youtube.com/results?search_query=${this.state.searchBarVal}`;
+
+            invoke('search_query', {
+                url: url,
+            }).then((json_str) => {
+                this.parseSearchJson(json_str);
+            });
         }
     }
 
+    parseSearchJson = (jstr) => {
+        var data = JSON.parse(jstr);
+        const isDefined = (element) => element == undefined;
+
+        var refinements = data.refinements;
+        
+        var videoList = data['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents'];
+
+        var rv = [];
+
+        for (var i = 0; i < videoList.length; i++) {
+            try {
+                var vid = videoList[i]['videoRenderer'];
+
+                var vidComplete = {
+                    id: vid['videoId'],
+                    thumbnail: vid['thumbnail']['thumbnails'][0]['url'],
+                    title: vid['title']['runs'][0]['text'],
+                    url: vid['navigationEndpoint']['commandMetadata']['webCommandMetadata']['url'],
+                    owner: vid['ownerText']['runs'][0]['text'],
+                };
+
+                var vals = Object.values(vidComplete);
+
+                if (!vals.some(isDefined)) {
+                    rv.push(vidComplete);
+                };
+            }
+            catch(err) {
+                // loser
+            }
+        };
+
+        this.setState({
+            videos: this.searchToElements(rv),
+            refinements: refinements,
+            currentlySearching: false,
+        });
+    }
+
     // convert a searched song JSON response to actual elements
-    searchToElements = (res) => {
-        return res.map(video => {
+    searchToElements = (rv) => {
+        return rv.map(video => {
             const self = this;
+            var vidid = video.id;
 
             return <div className="video">
-                <div className="thumbnail" onClick={() => this.playVideo({video})}>
+                <div className="thumbnail" onClick={() => this.playVideo({vidid})}>
                     <img src={video.thumbnail} className="thumbnail-img"/>
                     <div className="play-thumbnail center-content">
                         <PlayIcon className="icon"/>
@@ -131,8 +160,6 @@ class App extends Component {
                 percentPlayed: 0,
             }
         });
-
-        console.log(r);
     }
 
     render() {
