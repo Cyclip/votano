@@ -367,6 +367,7 @@
 .thumbnail .thumbnail-img {
     border-radius: 10px;
     max-height: 100%;
+    transition: 0.5s ease;
 }
 
 .thumbnail .play-thumbnail:hover {
@@ -444,6 +445,26 @@
     opacity: 1;
 }
 
+#search .videos .video:hover .thumbnail .thumbnail-img {
+  animation: shake 5s ease-in infinite alternate;
+  max-height: 103%;
+  transform: scale(150);
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-0.5px, -0.5px); }
+    20% { transform: translate(-0.5px, 0px); }
+    30% { transform: translate(0.5px, 0.5px); }
+    40% { transform: translate(0.5px, -0.5px); }
+    50% { transform: translate(-0.5px, 0.5px); }
+    60% { transform: translate(-0.5px, 0.5px); }
+    70% { transform: translate(0.5px, 0.5px); }
+    80% { transform: translate(-0.5px, -0.5px); }
+    90% { transform: translate(0.5px, 0.5px); }
+    100% { transform: translate(0.5px, -0.5px); }
+  }
+
 /* playbar */
 .playbar {
     width: 100%;
@@ -454,15 +475,35 @@
 }
 
 .playbar .currently-playing {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 80px;
     display: grid;
     grid-template-columns: 100px calc(100% - 100px);
+    border-radius: 30px;
 }
 
 .playbar .currently-playing .thumbnail {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 80px;
+    margin: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.playbar .currently-playing .details {
+    width: 350px;
+    height: 50px;
+    padding: 5px 25px;
+}
+
+.playbar .currently-playing .details h3 {
+    font-size: 16px;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .thumbnail-img.no-vid {
@@ -562,4 +603,17 @@
     border-radius: 16px;
     bottom: 9px;
     background-color: #55E4A6;
+}
+
+.progress-bar .timing {
+    position: absolute;
+    font-size: 14px;
+    width: 100px;
+    opacity: 0.5;
+    right: 45px;
+    transform: translateY(-5px);
+}
+
+.progress-bar .timing h5 {
+    margin: 0;
 }

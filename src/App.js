@@ -33,8 +33,10 @@ class App extends Component {
             // not playing any
             currentVideo: {
                 isVideo: false,
+                id: null,
+                title: null,
                 thumbnail: threedots,
-                startTime: null,
+                currentTime: null,
                 endTime: null,
             },
 
@@ -97,8 +99,10 @@ class App extends Component {
     // convert a searched song JSON response to actual elements
     searchToElements = (res) => {
         return res.map(video => {
+            const self = this;
+
             return <div className="video">
-                <div className="thumbnail">
+                <div className="thumbnail" onClick={() => this.playVideo({video})}>
                     <img src={video.thumbnail} className="thumbnail-img"/>
                     <div className="play-thumbnail center-content">
                         <PlayIcon className="icon"/>
@@ -115,6 +119,22 @@ class App extends Component {
         })
     }
 
+    // play a video by its ID
+    playVideo = (r) => {
+        this.setState({
+            currentVideo: {
+                isVideo: true,
+                id: r.video.id,
+                thumbnail: r.video.thumbnail,
+                title: r.video.title,
+                currentTime: "0:00",
+                percentPlayed: 0,
+            }
+        });
+
+        console.log(r);
+    }
+
     render() {
         const maincontentstyle = {
             width: "100%",
@@ -124,7 +144,14 @@ class App extends Component {
             margin: "0",
         }
 
-        var percentagePlayed = this.state.percentPlayed + "%";
+        var colouredBarStyle = {
+            "width": this.state.percentPlayed + "%"
+        };
+
+        var ballStyle = {
+            "margin-left": "calc(" + this.state.percentPlayed + "% - 8px)"
+        };
+
 
         return <div className="App"> 
             <header className="App-header">
@@ -211,8 +238,7 @@ class App extends Component {
                                     <img src={this.state.currentVideo.thumbnail} className={"thumbnail-img " + (this.state.currentVideo.isVideo ? "" : "no-vid")}/>
                                 </div>
                                 <div className="details">
-                                    <h2>{this.state.currentVideo.title}</h2>
-                                    <h3>{this.state.currentPlaylist.name}</h3>
+                                    <h3 className="truncate">{this.state.currentVideo.title}</h3>
                                 </div>
                             </div>
                             <div className="progressbar">
@@ -240,14 +266,14 @@ class App extends Component {
                                 </div>
                                 <div className="progress-bar">
                                     <div className="thin-bar">
-                                        <div className="coloured-bar glow-bar" style={{"width": percentagePlayed}}></div>
-                                        <div className="ball glow-bar" style={{"margin-left": `calc(${percentagePlayed} - 8px)`}}></div>
+                                        <div className="coloured-bar glow-bar" style={colouredBarStyle}></div>
+                                        <div className="ball glow-bar" style={ballStyle}></div>
                                     </div>
                                     
                                     <div className="timing">
                                         <h5>{
                                                 this.state.currentVideo.isVideo
-                                                ? this.state.currentVideo.startTime
+                                                ? this.state.currentVideo.currentTime
                                                 : "0:00"
                                             } / {
                                                 this.state.currentVideo.isVideo
