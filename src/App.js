@@ -37,12 +37,14 @@ class App extends Component {
                 isVideo: false,
                 id: null,
                 title: null,
+                url: null,
                 thumbnail: threedots,
                 currentTime: null,
                 endTime: null,
+                playing: false,
             },
 
-            percentPlayed: 30,
+            percentPlayed: 0,
 
             currentPlaylist: {
                 name: null,
@@ -128,10 +130,9 @@ class App extends Component {
     searchToElements = (rv) => {
         return rv.map(video => {
             const self = this;
-            var vidid = video.id;
 
             return <div className="video">
-                <div className="thumbnail" onClick={() => this.playVideo({vidid})}>
+                <div className="thumbnail" onClick={() => this.playVideo({video})}>
                     <img src={video.thumbnail} className="thumbnail-img"/>
                     <div className="play-thumbnail center-content">
                         <PlayIcon className="icon"/>
@@ -150,16 +151,26 @@ class App extends Component {
 
     // play a video by its ID
     playVideo = (r) => {
-        this.setState({
-            currentVideo: {
-                isVideo: true,
+        if (r.video.id != this.state.currentVideo.id) {
+            invoke('get_direct_url', {
                 id: r.video.id,
-                thumbnail: r.video.thumbnail,
-                title: r.video.title,
-                currentTime: "0:00",
-                percentPlayed: 0,
-            }
-        });
+            }).then((url) => {
+                this.setState({
+                    currentVideo: {
+                        isVideo: true,
+                        id: r.video.id,
+                        url: url,
+                        thumbnail: r.video.thumbnail,
+                        title: r.video.title,
+                        currentTime: "0:00",
+                        playing: true,
+                    },
+                    percentPlayed: 0,
+                });
+        
+                console.log(this.state);
+            });
+        }
     }
 
     render() {
