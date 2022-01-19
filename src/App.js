@@ -152,6 +152,7 @@ class App extends Component {
     // play a video by its ID
     playVideo = (r) => {
         if (r.video.id != this.state.currentVideo.id) {
+            console.log(r.video.id);
             invoke('get_direct_url', {
                 id: r.video.id,
             }).then((url) => {
