@@ -50,12 +50,10 @@ fn get_direct_url(id: String) -> Result<String, String> {
     captures.next();
 
     for cap in captures {
-        let url = remove_quot(&cap[0])
-            .replace(r"\u0026", "&")
-            .replace(r"%2F", "/");
+        let url = remove_quot(&cap[0]);
 
-        if url.contains("mime=audio/mp4") {
-            return Ok(url);
+        if url.contains("mime%3Daudio%252Fmp4") {
+            return url.to_string();
         }
         
     };
@@ -66,12 +64,11 @@ fn get_direct_url(id: String) -> Result<String, String> {
 /// Remove quotations from a string (assuming its start and end char)
 fn remove_quot(s: &str) -> &str {
     let mut iter = s.chars();
-    iter.next();
     iter.next_back();
     iter.as_str()
 }
 
-/// 
+
 fn get_html(url: String) -> Result<String, ureq::Error> {
     let body: String = ureq::get(&url[..])
         .set("User-Agent", random_user_agent())
